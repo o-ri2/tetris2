@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Capture — 블럭 스택</title>
+  <style>
+    html, body { height: 100%; margin: 0; background: #ffffff; overflow: hidden; }
+    #wrap { position: fixed; inset: 0; display: grid; place-items: center; }
+    canvas { width: min(92vw, 900px); height: min(92vh, 1600px); background: #ffffff; }
+    .hint {
+      position: fixed;
+      left: 12px;
+      bottom: 12px;
+      font: 12px/1.4 system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo", sans-serif;
+      color: rgba(0,0,0,0.65);
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(0,0,0,0.1);
+      padding: 8px 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(6px);
+      user-select: none;
+    }
+    .hint kbd {
+      font: inherit;
+      padding: 1px 6px;
+      border: 1px solid rgba(0,0,0,0.25);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      background: #fff;
+      margin: 0 2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <canvas id="c" aria-label="블럭 스택 캡쳐"></canvas>
+  </div>
+  <div class="hint" aria-hidden="true">
+    <div><kbd>R</kbd> 새 랜덤 스택(자동 저장) · <kbd>C</kbd> 지금 저장</div>
+    <div>프로젝트 폴더 저장: 터미널에서 <kbd>npm run capture</kbd> 실행 후 접속하면 `save_png/`에 저장됨</div>
+    <div>로딩 즉시 “랜덤으로 쌓여진 모습”만 표시(애니메이션 없음)</div>
+    <div>참고: 파일을 직접 열면(Web 보안) 텍스처/캡쳐가 막힐 수 있어요 → 로컬 서버로 여는 게 안전합니다.</div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="capture.js"></script>
+</body>
+</html>

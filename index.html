@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>— 구축과 쇠락 —</title>
+  <!-- Galmuri11: 한·영 비트맵 UI 통일 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-shell" class="app-shell app-shell--9-16" data-aspect="9:16">
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <div id="place-flash" class="place-flash" aria-hidden="true"></div>
+  <header class="terminal-header" aria-hidden="true">
+    <div class="terminal-header__rule"></div>
+    <div class="cabinet-marquee" aria-hidden="true">
+      <div class="cabinet-marquee__track">
+        <span class="cabinet-marquee__seg">◆ 구축과 쇠락 ◆ 쌓고 · 겹치고 · 넘치다 ◆ 메모리 85칸 한정 ◆ 스페이스로 한 칸씩 ◆ 가득 차면 흘러넘침 ◆ 블록 수만큼이 나이 ◆ 끝까지 쌓으면 아카이브 ◆ ◆ 구축과 쇠락 ◆ 쌓고 · 겹치고 · 넘치다 ◆ 메모리 85칸 한정 ◆ 스페이스로 한 칸씩 ◆ 가득 차면 흘러넘침 ◆ 블록 수만큼이 나이 ◆ 끝까지 쌓으면 아카이브 ◆</span>
+        <span class="cabinet-marquee__seg" aria-hidden="true">◆ 구축과 쇠락 ◆ 쌓고 · 겹치고 · 넘치다 ◆ 메모리 85칸 한정 ◆ 스페이스로 한 칸씩 ◆ 가득 차면 흘러넘침 ◆ 블록 수만큼이 나이 ◆ 끝까지 쌓으면 아카이브 ◆ ◆ 구축과 쇠락 ◆ 쌓고 · 겹치고 · 넘치다 ◆ 메모리 85칸 한정 ◆ 스페이스로 한 칸씩 ◆ 가득 차면 흘러넘침 ◆ 블록 수만큼이 나이 ◆ 끝까지 쌓으면 아카이브 ◆</span>
+      </div>
+    </div>
+    <div class="terminal-header__row terminal-header__row--arcade">
+      <span class="arcade-hud">
+        <span class="arcade-hud__label">점수</span>
+        <span class="arcade-hud__val arcade-hud__val--accent" id="hud-score">000</span>
+      </span>
+      <span class="arcade-hud">
+        <span class="arcade-hud__label">최고</span>
+        <span class="arcade-hud__val arcade-hud__val--hi" id="hud-hi">000</span>
+      </span>
+      <span class="arcade-hud">
+        <span class="arcade-hud__label">크레딧</span>
+        <span class="arcade-hud__val" id="hud-credit">01</span>
+      </span>
+    </div>
+    <div class="terminal-header__row terminal-header__row--sub">
+      <span class="terminal-txt terminal-txt--d1">실행</span>
+      <span class="terminal-txt terminal-txt--d2" id="terminal-clock">시각 00:00:00</span>
+    </div>
+  </header>
+
+  <aside class="terminal-ruler" id="terminal-ruler" aria-hidden="true"></aside>
+  <div class="ruler-gauge" id="ruler-gauge" aria-hidden="true">
+    <div class="ruler-gauge__fill" id="ruler-gauge-fill"></div>
+  </div>
+
+  <div id="canvas-wrap" class="canvas-wrap">
+    <div id="edge-eq" class="edge-eq edge-eq--canvas" aria-hidden="true">
+      <div class="edge-eq__top" id="edge-eq-top"></div>
+      <div class="edge-eq__left" id="edge-eq-left"></div>
+    </div>
+    <canvas id="c" aria-label="상호작용 작품"></canvas>
+  </div>
+
+  <div id="data-log" class="data-log" aria-hidden="true"></div>
+  <div class="side-meta" id="side-meta" aria-hidden="true">
+    <div id="addr-display" class="addr-display">주소: —</div>
+    <div id="age-display" class="age-display">
+      <span class="age-display__age" id="age-value">나이 00 세</span>
+    </div>
+  </div>
+  <div id="collapse-result" class="collapse-result" hidden aria-hidden="true">
+    <div class="collapse-result__panel">
+      <p class="collapse-result__title" id="collapse-result-title"></p>
+      <p class="collapse-result__stats" id="collapse-result-stats"></p>
+      <p class="collapse-result__hint">스페이스 · 다시</p>
+    </div>
+  </div>
+  <div id="data-dump" class="data-dump" aria-hidden="true">
+    <div class="data-dump__scroll">
+      <pre class="data-dump__pre"></pre>
+    </div>
+  </div>
+  <div id="overflow-matrix" class="overflow-matrix" hidden aria-hidden="true">
+    <div class="overflow-matrix__scroll">
+      <pre class="overflow-matrix__pre" id="overflow-matrix-pre"></pre>
+    </div>
+  </div>
+  <div id="archive-overlay" class="archive-overlay" hidden aria-hidden="true">
+    <pre class="archive-overlay__pre">★ ··· ★</pre>
+    <span class="archive-overlay__sub">···</span>
+  </div>
+  <div id="arcade-phase-hud" class="arcade-phase-hud" hidden aria-hidden="true">
+    <div class="arcade-phase-hud__inner">
+      <p class="arcade-phase-hud__badge" id="arcade-phase-hud-badge"></p>
+      <p class="arcade-phase-hud__title" id="arcade-phase-hud-text">버퍼 가득</p>
+      <p class="arcade-phase-hud__sub" id="arcade-phase-hud-sub"></p>
+    </div>
+  </div>
+  <div id="arcade-toast" class="arcade-toast" hidden aria-hidden="true">
+    <span class="arcade-toast__text" id="arcade-toast-text"></span>
+  </div>
+  <div id="float-meta" class="float-meta" aria-hidden="true">
+    <div class="float-meta__line float-meta__coords"></div>
+    <div class="float-meta__line float-meta__junk"></div>
+  </div>
+  <div id="insert-coin-prompt" class="insert-coin-prompt" aria-hidden="true">
+    <span class="insert-coin-prompt__text">시작하려면 스페이스</span>
+  </div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+        "matter-js": "https://esm.sh/matter-js@0.19.0"
+      }
+    }
+  </script>
+  <script type="module" src="main.js"></script>
+  <script src="dev-auto-reload.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+/**
+ * 〈구축과 쇠락〉작품 정의서 ver.2 — 시각적 순수 데이터·아카이브 승화(1px 라인)
+ * html[data-work-spec="construction-decline"] 전용. style.css / arcade-v2.css 위에 로드.
+ */
+
+html[data-work-spec="construction-decline"] body.arcade-v2 {
+  --v2-neon-pink: #c8c8c8;
+  --v2-neon-cyan: #a8a8a8;
+}
+
+/* 스테이지: 컬러 감정 거세 — 와이어만 남은 듯한 흑백(Three 캔버스) */
+html[data-work-spec="construction-decline"] #canvas-wrap {
+  filter: grayscale(1) contrast(1.06);
+}
+
+/* 커서 가이드(주황)도 톤 다운 */
+html[data-work-spec="construction-decline"] .cabinet-marquee__track {
+  color: rgba(220, 220, 220, 0.88);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+html[data-work-spec="construction-decline"] .arcade-v2-plaque__title {
+  color: #d0d0d0;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+}
+
+html[data-work-spec="construction-decline"] .arcade-v2-plaque__ver {
+  color: #909090;
+  text-shadow: none;
+}
+
+/* —— 결말: 승화(Archive) — 데이터가 1px 선으로 수축 후 상단으로 전송되는 연출 —— */
+html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay.archive-overlay--active {
+  overflow: hidden;
+  background: #000000;
+}
+
+/* 본문 카피는 선으로 수렴하며 사라짐 */
+html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay--active .archive-overlay__pre,
+html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay--active .archive-overlay__sub {
+  animation: construction-spec-archive-fade 1.4s ease forwards;
+}
+
+@keyframes construction-spec-archive-fade {
+  to {
+    opacity: 0;
+    transform: scaleY(0.15);
+    letter-spacing: 0.5em;
+  }
+}
+
+/* 1px 가로선: 화면 중앙 → 상단(업로드) */
+html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay.archive-overlay--active::after {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  top: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.95),
+    0 0 48px rgba(255, 255, 255, 0.25);
+  animation: construction-spec-line-rise 5.1s ease-in forwards;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes construction-spec-line-rise {
+  0% {
+    top: 50%;
+    opacity: 1;
+  }
+  70% {
+    top: 7%;
+    opacity: 0.85;
+  }
+  100% {
+    top: 2%;
+    opacity: 0.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay--active .archive-overlay__pre,
+  html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay--active .archive-overlay__sub {
+    animation: none;
+    opacity: 0.35;
+  }
+
+  html[data-work-spec="construction-decline"].archive-sublime-active .archive-overlay.archive-overlay--active::after {
+    animation: none;
+    top: 5%;
+    opacity: 0.5;
+  }
+}

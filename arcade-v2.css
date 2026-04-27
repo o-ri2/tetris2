@@ -1,0 +1,332 @@
+/**
+ * MEMORY STACK · ver.2 — 완전 아케이드 캐비닛 스킨
+ * 기존 style.css 위에 덮어쓰며, id / 게임 로직(main.js)은 변경하지 않음.
+ */
+
+body.arcade-v2 {
+  --v2-plaque-h: 24px;
+  --v2-neon-pink: #ff1a8c;
+  --v2-neon-cyan: #00e8ff;
+  --v2-neon-amber: #ffc53d;
+  --v2-cabinet: #161018;
+  --v2-cabinet-mid: #221a28;
+  --v2-chrome: #4a4455;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(80, 20, 90, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(0, 80, 120, 0.2) 0%, transparent 50%),
+    linear-gradient(165deg, #0a0610 0%, #120a18 38%, #08050c 100%);
+}
+
+/* 업라이트 홀 양옆 스피커 그릴 느낌 */
+body.arcade-v2::before,
+body.arcade-v2::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(56px, 8vw);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.45;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(40, 35, 50, 0.9) 0px,
+      rgba(40, 35, 50, 0.9) 3px,
+      rgba(10, 8, 14, 0.95) 3px,
+      rgba(10, 8, 14, 0.95) 5px
+    );
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+body.arcade-v2::before {
+  left: 0;
+}
+
+body.arcade-v2::after {
+  right: 0;
+}
+
+/* —— 캐비닛 본체 —— */
+.app-shell.app-shell--v2 {
+  border-radius: 10px 10px 14px 14px;
+  background:
+    linear-gradient(145deg, #2a222e 0%, var(--v2-cabinet) 22%, #0f0c12 72%, #18141c 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 0 3px #0a080c,
+    0 28px 56px rgba(0, 0, 0, 0.85),
+    0 0 100px rgba(255, 20, 140, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+/* 안쪽 네온 테두리 (기존 ::before 대체) */
+.app-shell--v2::before {
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 4px rgba(255, 26, 140, 0.35),
+    inset 0 0 0 6px rgba(0, 0, 0, 0.75),
+    inset 0 0 0 8px rgba(0, 232, 255, 0.12),
+    inset 0 0 48px rgba(255, 0, 120, 0.06);
+}
+
+/* 상단 타이틀 플라크 */
+.arcade-v2-plaque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 4px 14px 5px;
+  margin: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(50, 40, 58, 0.95) 0%,
+    rgba(18, 14, 22, 0.98) 48%,
+    rgba(8, 6, 12, 1) 100%
+  );
+  border-bottom: 2px solid rgba(0, 0, 0, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.arcade-v2-plaque__title {
+  font-family: var(--term-font-8bit);
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  color: var(--v2-neon-amber);
+  text-shadow:
+    0 0 12px rgba(255, 200, 60, 0.45),
+    0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+.arcade-v2-plaque__ver {
+  font-family: var(--term-font-8bit);
+  font-size: 5px;
+  letter-spacing: 0.35em;
+  color: var(--v2-neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 232, 255, 0.4);
+  opacity: 0.95;
+}
+
+/* 플라크 높이만큼 고정 UI 아래로 */
+.app-shell--v2 .terminal-ruler {
+  top: calc(68px + var(--v2-plaque-h));
+}
+
+.app-shell--v2 .ruler-gauge {
+  top: calc(68px + var(--v2-plaque-h));
+}
+
+.app-shell--v2 .canvas-wrap {
+  top: calc(70px + var(--v2-plaque-h));
+}
+
+.app-shell--v2 .side-meta {
+  top: calc(70px + var(--v2-plaque-h));
+}
+
+/* 마퀴: 네온 튜브 */
+.app-shell--v2 .cabinet-marquee {
+  height: 16px;
+  line-height: 16px;
+  padding: 0 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(90, 0, 70, 0.55) 0%,
+    rgba(0, 50, 90, 0.5) 35%,
+    rgba(60, 0, 80, 0.55) 70%,
+    rgba(0, 40, 70, 0.5) 100%
+  );
+  border-bottom: 1px solid rgba(255, 200, 80, 0.35);
+  box-shadow:
+    inset 0 0 12px rgba(255, 60, 180, 0.15),
+    0 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.app-shell--v2 .cabinet-marquee__track {
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  color: #fff8c8;
+  text-shadow:
+    0 0 8px rgba(255, 220, 100, 0.55),
+    0 0 2px rgba(255, 100, 200, 0.35);
+}
+
+.app-shell--v2 .terminal-header__row--arcade {
+  padding-top: 8px;
+  padding-left: 32px;
+  background: linear-gradient(180deg, rgba(30, 22, 38, 0.4) 0%, transparent 100%);
+}
+
+.app-shell--v2 .arcade-hud__label {
+  color: var(--v2-neon-cyan);
+  text-shadow: 0 0 8px rgba(0, 232, 255, 0.45);
+}
+
+.app-shell--v2 .arcade-hud__val--accent,
+.app-shell--v2 .arcade-hud__val--hi {
+  color: #9ffff0;
+  text-shadow:
+    0 0 12px rgba(0, 255, 240, 0.5),
+    0 0 2px rgba(0, 40, 60, 0.8);
+}
+
+/* 스크린 베젤 + CRT 안쪽 그림자 */
+.app-shell--v2 .canvas-wrap {
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 3px #050508,
+    0 0 0 5px #1c1a22,
+    0 0 0 7px #08080a,
+    0 12px 32px rgba(0, 0, 0, 0.75),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.arcade-v2-crt-bezel {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 0 3px rgba(0, 0, 0, 0.92),
+    inset 0 0 0 5px rgba(40, 38, 48, 0.9),
+    inset 0 3px 28px rgba(0, 0, 0, 0.65),
+    inset 0 -2px 20px rgba(80, 40, 100, 0.08);
+}
+
+/* CRT 스캔·비네트 강화 */
+.app-shell--v2 .crt-overlay {
+  background:
+    radial-gradient(ellipse 88% 72% at 50% 46%, transparent 0%, rgba(0, 0, 0, 0.62) 100%),
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.16) 2px,
+      rgba(0, 0, 0, 0.16) 3px
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+}
+
+/* 주소 디스플레이: 마퀴 라벨 */
+.app-shell--v2 .addr-display {
+  font-family: var(--term-font-8bit);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  padding: 4px 8px;
+  border: 1px solid rgba(0, 232, 255, 0.25);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--v2-neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 232, 255, 0.35);
+}
+
+/* 세로 눈금: 메모리 인덱스 */
+.app-shell--v2 .terminal-ruler {
+  border-right: 2px solid rgba(255, 26, 140, 0.22);
+  box-shadow: 4px 0 18px rgba(255, 0, 120, 0.06);
+  background: linear-gradient(90deg, rgba(20, 14, 26, 0.35) 0%, transparent 100%);
+}
+
+.app-shell--v2 .terminal-ruler__tick {
+  opacity: 0.52;
+  color: #e8e0ff;
+}
+
+.app-shell--v2 .ruler-gauge {
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(0, 232, 255, 0.15);
+}
+
+.app-shell--v2 .ruler-gauge__fill {
+  background: linear-gradient(180deg, rgba(0, 255, 240, 0.35) 0%, rgba(255, 40, 140, 0.25) 100%);
+}
+
+/* 하단 컨트롤 데크 */
+.arcade-v2-deck {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 28;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 30px;
+  padding: 0 12px 4px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.45) 35%,
+    rgba(12, 10, 16, 0.92) 100%
+  );
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.arcade-v2-deck__grille {
+  flex: 1;
+  max-width: 72px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.5;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #1a1820 0px,
+      #1a1820 2px,
+      #0a0a10 2px,
+      #0a0a10 4px
+    );
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.arcade-v2-deck__label {
+  flex: 0 1 auto;
+  font-family: var(--term-font-8bit);
+  font-size: 5px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 220, 200, 0.45);
+  text-shadow: 0 0 8px rgba(255, 100, 80, 0.2);
+  white-space: nowrap;
+}
+
+.app-shell--v2 .pixel-heart {
+  bottom: 52px;
+}
+
+.app-shell--v2 .pixel-heart__svg {
+  filter:
+    drop-shadow(0 0 6px rgba(255, 26, 140, 0.65))
+    drop-shadow(0 0 14px rgba(255, 80, 180, 0.35));
+}
+
+/* 토스트: 위쪽 네온 팝업 */
+.app-shell--v2 .arcade-toast__text {
+  color: var(--v2-neon-amber);
+  text-shadow:
+    0 0 14px rgba(255, 200, 80, 0.55),
+    0 2px 0 rgba(80, 20, 40, 0.5);
+}
+
+/* 오버플로우 HUD: 캐비닛 더 깊은 네온 (기존 단계 유지, 강도만 보강) */
+.app-shell--v2 .arcade-phase-hud__inner {
+  backdrop-filter: blur(2px);
+}
+
+.app-shell--v2 .arcade-phase-hud__badge {
+  text-shadow: 0 0 14px rgba(255, 100, 200, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.arcade-v2::before,
+  body.arcade-v2::after {
+    opacity: 0.28;
+  }
+}
