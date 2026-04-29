@@ -110,6 +110,39 @@
       }
     }
   </script>
+  <script>
+    (function () {
+      function isFullscreen() {
+        return !!(document.fullscreenElement || document.webkitFullscreenElement);
+      }
+
+      function requestFullscreenNow() {
+        if (isFullscreen()) return;
+        const el = document.documentElement;
+        const req =
+          el.requestFullscreen ||
+          el.webkitRequestFullscreen ||
+          el.msRequestFullscreen;
+        if (!req) return;
+        try {
+          const p = req.call(el);
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch (_) {
+          // ignore
+        }
+      }
+
+      // 로드 직후 자동 시도
+      requestFullscreenNow();
+      requestAnimationFrame(requestFullscreenNow);
+      setTimeout(requestFullscreenNow, 250);
+
+      // 자동 요청이 막히는 브라우저를 위해 최초 사용자 입력에서 재시도
+      const retryOnGesture = () => requestFullscreenNow();
+      window.addEventListener('pointerdown', retryOnGesture, { once: true, capture: true });
+      window.addEventListener('keydown', retryOnGesture, { once: true, capture: true });
+    })();
+  </script>
   <script type="module" src="main.js"></script>
   <script src="dev-auto-reload.js"></script>
 </body>
